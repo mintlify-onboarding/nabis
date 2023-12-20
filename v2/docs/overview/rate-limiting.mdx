@@ -1,0 +1,24 @@
+---
+title: "Rate Limiting"
+---
+
+All API calls are subject to rate limiting on a per-minute basis. Rate limiting can be configured per-token, please reach out to [help@nabis.com](mailto:help@nabis.com) for more information.
+
+| Token Type | Rate Limit               |
+| ---------- | ------------------------ |
+| Standard   | 15 calls / 60 seconds    |
+| Custom     | **N** calls / 60 seconds |
+
+---
+
+## Exceeded Rate Limit Response[](#exceeded-rate-limit-response "Direct link to heading")
+
+If you exceed the rate limit for your access token, the API will respond with the following:
+
+```
+{
+  "statusCode": 429,
+  "message": "Too Many Requests"
+}
+
+```

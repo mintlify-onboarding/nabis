@@ -1,0 +1,121 @@
+---
+title: "Getting started with the REST API"
+description: Let's walk through core API concepts as we tackle some every day use cases. You will first need to [generate an API key](/v2/docs/overview/generating-api-key).
+---
+
+## Overview[](#overview "Direct link to heading")
+
+We are curing to use [cURL](http://curl.haxx.se/). If you are using an alternative client, ensure that you are able to send the required [User Agent header](/v2/docs/overview/authentication) in each request.
+
+## Hello, World! :D[](#hello-world-d "Direct link to heading")
+
+[Generate an API key](/v2/docs/overview/generating-api-key) and let's get started by testing our setup.
+
+```bash
+$ curl -H "x-nabis-access-token: <access-token>" \
+  https://platform-api.nabis.pro/v2/nabis-days-off
+>
+> [
+>   {
+>     "date":"2022-01-01",
+>     "description":"This year's New Years Day"
+>   },
+>   ...
+> ]%   
+
+```
+
+Let's add the `-i` flag to include headers:
+
+```bash
+$ curl -i -H "x-nabis-access-token: <access-token>" \
+  https://platform-api.nabis.pro/v2/nabis-days-off
+
+> HTTP/1.1 200 OK
+> Date: Sun, 07 Aug 2022 11:15:14 GMT
+> Content-Type: application/json; charset=utf-8
+> Content-Length: 517
+> Connection: keep-alive
+> X-Frame-Options: SAMEORIGIN
+> X-Permitted-Cross-Domain-Policies: none
+> Referrer-Policy: no-referrer
+> Access-Control-Allow-Origin: *
+> ETag: W/"205-tARba5EOhSEMX2NJJ33BWs9hg5I"
+>
+> [{
+>   "date":"2022-01-01",
+>   "description":"This year's New Years Day"
+> }, ...]%
+
+```
+
+There are some interesting bits in the response. As we expected, the `Content-Type` is `application/json`.
+
+Headers beginning with `X-` are custom headers and are not included in the HTTP spec. For example, this API leverages the header `x-nabis-access-token` for [authentication](/v2/docs/overview/authentication).
+
+## Making a call[](#making-a-call "Direct link to heading")
+
+To get a list of orders for your organization, call `GET /orders`, but remember `/orders` is paginated so we will receive a paginated response body with additional data about our request so we know how many calls to make in order to fetch all of the data we want.
+
+Keep in mind that both `limit` and `page` are required query parameters for `/orders`. If we don't supply both with our query, we will be returned a `400` error - `Bad request exception`.
+
+### Get the firt page, page 0[](#get-the-firt-page-page-0 "Direct link to heading")
+
+```bash
+$ curl -H "x-nabis-access-token: <access-token>" \
+  https://platform-api.nabis.pro/v2/orders?page=0&limit=100
+>
+> {
+>   "data": [{
+>     "id": "544e23bc-563e-402a-8b43-126656377d89", ...
+>   }],
+>   "page": 1,
+>   "totalCount" 1152,
+>   "totalNumPages": 11,
+>   "nextPage": 2,
+>   "prevPage": 0
+> }%
+
+```
+
+### Get the second page, page 1[](#get-the-second-page-page-1 "Direct link to heading")
+
+```bash
+$ curl -H "x-nabis-access-token: <access-token>" \
+  https://platform-api.nabis.pro/v2/orders?page=1&limit=100
+>
+> {
+>   "data": [{
+>     "id": "70e2be90-1662-49ab-85b3-8c92499c55ef", ...
+>   }],
+>   "page": 1,
+>   "totalCount" 1152,
+>   "totalNumPages": 11,
+>   "nextPage": 2,
+>   "prevPage": 0
+> }%
+
+```
+
+### Get the last page, page 11[](#get-the-last-page-page-11 "Direct link to heading")
+
+```bash
+$ curl -H "x-nabis-access-token: <access-token>" \
+  https://platform-api.nabis.pro/v2/orders?page=11&limit=100
+>
+> {
+>   "data": [{
+>     "id": "350bb797-a976-4f01-962d-63da5d41a50e", ...
+>   }],
+>   "page": 11,
+>   "totalCount" 1152,
+>   "totalNumPages": 11,
+>   "nextPage": null,
+>   "prevPage": 10
+> }%
+
+```
+
+## Next Steps[](#next-steps "Direct link to heading")
+
+Be sure to check out the documentation on [Date and Times](/v2/docs/overview/dates-and-times) along with [Pagination](/v2/docs/overview/pagination). Or, just jump straight into the [API Reference](/v2/docs/endpoints/platform-api).

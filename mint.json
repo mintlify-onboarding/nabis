@@ -1,0 +1,90 @@
+{
+    "name": "Nabis",
+    "logo": {
+      "light": "/logo/light.png",
+      "dark": "/logo/dark.png"
+    },
+    "favicon": "/favicon.png",
+    "colors": {
+      "primary": "#E2B600",
+      "light": "#FDD11A",
+      "dark": "#E2B600"
+    },
+    "topbarCtaButton": {
+      "name": "Sign Up",
+      "url": "https://app.nabis.com/"
+    },
+    "modeToggle": {
+        "default": "dark"
+    },
+    "topbarLinks": [
+      {
+        "name": "Release Updates",
+        "url": "https://developers.nabis.com/v2/blog/"
+      }
+    ],
+    "feedback": {
+        "thumbsRating": true,
+        "suggestEdit": true,
+        "raiseIssue": true
+    },
+    "tabs": [
+        {
+            "name": "API Reference",
+            "url": "api-reference"
+        }
+    ],
+    "anchors": [
+      {
+        "name": "Contact Us",
+        "icon": "comments",
+        "url": "https://www.nabis.com/contact"
+      },
+      {
+        "name": "Status",
+        "icon": "signal-bars",
+        "url": "https://status.nabis.com/"
+      },
+      {
+        "name": "Blog",
+        "icon": "newspaper",
+        "url": "https://www.nabis.com/newsroom/blog"
+      }
+    ],
+    "navigation": [
+        {
+            "group": "Welcome to Nabis",
+            "pages": [
+              "v2/docs/overview/introduction",
+              "v2/docs/overview/generating-api-key",
+              "v2/docs/overview/authentication",
+              "v2/docs/overview/dates-and-times",
+              "v2/docs/overview/postman-collection"
+            ]
+        },
+      {
+        "group": "Orders",
+        "pages": [
+          "api-reference/orders/get-standard-csv-for-all-orders",
+          "api-reference/orders/get-detailed-csv-for-all-orders"
+        ]
+      },
+      {
+        "group": "Inventory",
+        "pages": [
+          "api-reference/inventory/get-inventory-csv"
+        ]
+      },
+      {
+        "group": "Invoices",
+        "pages": [
+          "api-reference/invoices/get-invoice-csv"
+        ]
+      }
+    ],
+    "footerSocials":
+      {
+          "twitter": "https://twitter.com/getnabis?lang=en",
+          "linkedin": "https://www.linkedin.com/company/nabishq/"
+      }
+  }

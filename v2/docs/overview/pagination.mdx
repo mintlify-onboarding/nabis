@@ -1,0 +1,49 @@
+---
+title: "Pagination"
+---
+
+Some requests can contain thousands of records. We paginate our responses, requiring you to make multiple API calls to get the data.
+
+tip
+
+This APIs pagination is **0-index based**, much like looking up an array via index notation. All pages start at `0`.
+
+tip
+
+For a paginated endpoint, both `page` and `limit` are required query parameters.
+
+Consider calling `GET /order?page=0&limit=100`
+
+```
+{
+  "data": [],
+  "page": 0,
+  "totalCount": 4200,
+  "totalNumPages": 42,
+  "nextPage": 1,
+  "prevPage": null
+}
+
+```
+
+You will notice we return a couple of items that make it easy to determine how many requests you need to make to capture all the data.
+
+### `totalCount`[](#totalcount "Direct link to heading")
+
+With this field we now tell you how many records your query is going to return. And from there with your `limit` input, we can easily calculate the `totalNumPages`to vastly improve the pagination experience. 
+
+---
+
+### `totalNumPages`[](#totalnumpages "Direct link to heading")
+
+With API paging starting at page `0`, `totalNumPages` will maintain paging correctness.
+
+An example of correctness with 0 index-based paging would be with `42` actual pages,`totalNumPages` would return `41` because of page `0`.
+
+Once you have a single page, it will display `totalNumPages: 1` instead of `0`, because page `0` is a valid page.
+
+---
+
+### `nextPage` and `prevPage`[](#nextpage-and-prevpage "Direct link to heading")
+
+If you called with the query parameter `page=0` then `prevPage` would be `null`. If you called with`page=42` then `nextPage` would be `null`.

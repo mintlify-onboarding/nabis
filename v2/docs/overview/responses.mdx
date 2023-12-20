@@ -1,0 +1,74 @@
+---
+title: "API Responses"
+---
+
+## Maintenance Mode[](#maintenance-mode "Direct link to heading")
+
+If the API is undergoing maintenance, the API will respond with the following:
+
+```
+{
+  "statusCode": 503,
+  "message": "The API is currently under maintenance, we apologize, but check back shortly.",
+  "error": "Service Unavailable"
+}
+
+```
+
+---
+
+## Request Timeout[](#request-timeout "Direct link to heading")
+
+If an call exceeds **60 seconds**, the API will terminate the request and respond with the following response:
+
+```
+{
+  "statusCode": 408,
+  "message": "Your request is taking over 60000ms, please try again"
+}
+
+```
+
+---
+
+## Inventory Failure[](#inventory-failure "Direct link to heading")
+
+If a call to `/inventory`, is unable to fetch inventory data, the following error will be given:
+
+```
+{
+  "statusCode": 500,
+  "message": "Unable to fetch inventory data. Sorry for the inconvenience, please try again."
+}
+
+```
+
+---
+
+## Invalid Date[](#invalid-date "Direct link to heading")
+
+If a call to any endpoint provides an invalid ISO8601 date, the API will respond with the following error:
+
+```
+{
+  "statusCode": 400,
+  "message": "Invalid ISO8601 date provided for snapshot date. Format: 'YYYY-MM-DD'. Example: '2022-04-20'"
+}
+
+```
+
+The only valid date format the API accepts is `yyyy-mm-dd`. See [Dates and Times](/v2/docs/overview/dates-and-times)
+
+---
+
+## Invalid Query Parameters[](#invalid-query-parameters "Direct link to heading")
+
+If you provide invalid input, the API will response with the following error:
+
+```
+{
+  "statusCode": 400,
+  "message": "Bad request exception"
+}
+
+```

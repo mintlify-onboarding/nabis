@@ -1,0 +1,46 @@
+---
+title: "Dates and Times"
+description: All date and date/time fields that are submitted to the API are expected to be in [ISO8601 format](https://en.wikipedia.org/wiki/ISO%5F8601). All date and date/time fields returned by the server will also be in ISO 8601 format.
+---
+
+<Note>
+
+The **only** ISO8601 date format supported is `YYYY-MM-DD`. A format other than this will result in a `Bad request exception` being returned. 
+
+
+Example: `2022-04-20`
+</Note>
+
+
+All dates and timestamps returned will be in **UTC**.
+
+## Examples[](#examples "Direct link to heading")
+
+| Type      | Example                  | Description                                                                                                                                                |
+| --------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Date      | 2022-04-20               | This date format represents April 20th, 2022 UTC. This is generally how all dates are expected in input, and how all dates are formatted for output.       |
+| Timestamp | 2022-04-20T16:20:00.000Z | This date/time format represents April 20th, 2022 at 4:20:00.000 PM UTC. A timestamp in a response would be an example of where this format would be seen. |
+
+---
+
+## Providing dates in your query parameters[](#providing-dates-in-your-query-parameters "Direct link to heading")
+
+You are able to provide a single date for both the `start` and `end` date parameters to retrieve results for a **single date**.
+
+If you provide an improperly formatted date, you will receive a **400** error of `Bad Request Exception` or `Invalid ISO8601 date provided for snapshot date. Format: 'YYYY-MM-DD'. Example: '2022-04-20'` error depending on the route.
+
+---
+
+## Orders for a single day example[](#orders-for-a-single-day-example "Direct link to heading")
+
+If you wanted to retrieve all orders for your organization that were created on **`2022-04-20`**, you would use the query parameters below:
+
+| startCreatedAt | endCreatedAt |
+| -------------- | ------------ |
+| 2022-04-20     | 2022-04-20   |
+
+```bash
+$ curl -H "x-nabis-access-token: <access-token>" \
+  https://platform-api.nabis.pro/v2/orders?page=0&limit=100&startCreatedAt=2022-04-20&endCreatedAt=2022-04-20
+
+```

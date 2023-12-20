@@ -1,0 +1,73 @@
+---
+title: "TroubleshootingSomething else?"
+---
+
+### Learn how to resolve the most common problems people encounter in the REST API.[](#learn-how-to-resolve-the-most-common-problems-people-encounter-in-the-rest-api "Direct link to heading")
+
+If you are encountering some oddities in the API, here is a list of resolutions to some common problems.
+
+## Not all results returned[](#not-all-results-returned "Direct link to heading")
+
+In our initial version of the API, the pagination paradigm was very light and only included your `data` and `page` number. This led to a lot of questions surrounding incomplete data due to lack of awareness of total record count for the request.
+
+With a [recent update we have addressed this](/v2/docs/overview/pagination).
+
+Most API calls accessing a list of resources (ex. orders, invoices, _etc_.) support pagination. If you are making requests and receiving an incomplete set of results, you are probably only seeing the first page. You will need to request the remaining pages in order to get more results.
+
+---
+
+## Authentication errors[](#authentication-errors "Direct link to heading")
+
+If you keep getting `Invalid API key` as an error back to your calls, please log in to the Nabis platform and re-copy the key from the [API page](/v2/docs/overview/generating-api-key).
+
+Ensure that you are sending your API key in the request headers with the `x-nabis-access-token` key and generated API key as the value. An example is below with a fake access token, just swap it for yours.
+
+```
+$ curl https://platform-api.nabis.pro/v2/warehouses \
+  -H 'x-nabis-access-token: <access-token>'
+>
+> [{"id": "07f360fd-2506-40e5-b43e-409f5bd14b0f"}, {...}]
+
+```
+
+---
+
+## Timeouts[](#timeouts "Direct link to heading")
+
+If the Platform API takes more than 60 seconds to process an API request, the Platform API will terminate the request, and you will receive a [timeout response](/v2/docs/overview/responses#request-timeout).
+
+---
+
+## Numeric Data Types[](#numeric-data-types "Direct link to heading")
+
+The Platform API treats all numbers, regardless of their specific type as the same. That means that a `float`, `double`, and `numeric` are all just `number`, which may or may not carry a decimal with precision. 
+
+Valid numeric values:
+
+* `420`
+* `420.42`
+* `0.0420`
+
+---
+
+## Dates[](#dates "Direct link to heading")
+
+If you provide an improperly formatted date, like `20220420` to the API, it will reply back with a `400` error of `Bad Request Exception`. 
+
+Refer to the [Date and Times documentation](/v2/docs/overview/dates-and-times) for the format the API expects.
+
+---
+
+## Weekends[](#weekends "Direct link to heading")
+
+Some API endpoints let you query by delivery date. Keep in mind that Nabis does not make deliveries on the weekends so seeing `0` results is valid.
+
+---
+
+## Older Inventory History[](#older-inventory-history "Direct link to heading")
+
+The batch-level historical inventory data is only available for the **last 90 days**. After this time window, it becomes unavailable for querying.
+
+---
+
+If you are having trouble and need help, please reach out to [help@nabis.com](mailto:help@nabis.com) for assistance.

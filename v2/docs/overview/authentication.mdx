@@ -1,0 +1,29 @@
+---
+title: "Authentication"
+---
+
+## x-nabis-access-token[](#x-nabis-access-token "Direct link to heading")
+
+The NABIS Platform V2 API is secured via an API token security scheme, which is passed in the header with the following key, `x-nabis-access-token`. This is your key that you [generated in a prior step](/v2/docs/overview/generating-api-key).
+
+```bash
+curl https://platform-api.nabis.pro/v2/warehouses \
+  -H 'x-nabis-access-token: <access-token>'
+
+> [{"id":"4de72642-m30c-4149-9e93-b1e2f11d34co"}...]% 
+
+```
+
+## Invalid Credentials[](#invalid-credentials "Direct link to heading")
+
+If you attempt to send an invalid token, the API will respond appropriately.
+
+```bash
+{
+  "statusCode": 401,
+  "message": "Invalid API key",
+}
+
+```
+
+If you need help verifying the key you are using is correct, refer to the [Generating API Key documentation](/v2/docs/overview/generating-api-key).
